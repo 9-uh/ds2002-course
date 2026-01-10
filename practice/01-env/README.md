@@ -24,11 +24,13 @@ Once your codespace is running, open the terminal and run these commands to lear
 
 **Congratulations! You are all set for the next class activities.**
 
-## Useful commands
+## Optional - On your own computer
 
-### List your active codespaces
-```
-gh codespace list
+If you have a terminal application installed on your own computer, open it now.
+
+Then run:
+```bash
+hostname
 ```
 
 ## Troubleshooting

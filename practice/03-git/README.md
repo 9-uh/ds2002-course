@@ -1,20 +1,20 @@
 # Git & GitHub
 
+The goal of this activity is to familiarize you with version control using Git and GitHub. These tools are essential for tracking changes in your code, collaborating with others, managing project history, and contributing to open-source projects.
 
-## Setting up and Managing Repositories
+**Instructions**: Work through the examples below in your terminal (Codespace or local), experimenting with each command and its various options. If you encounter an error message, don't be discouraged—errors are learning opportunities. Reach out to your peers or instructor for help when needed, and help each other when you can. 
 
-Read [git in Data Science](https://uvads.github.io/git-basics/) for a brief introduction.
+If the initial examples feel like a breeze, challenge yourself with activities in the *Advanced Concepts* section and explore the resource links at the end of this post.
 
-Then work through the [Creating and Managing Git Repositories Exercises](https://uvads.github.io/git-basics/docs/creating-repositories/). These exercises will cover:
+* Start with the **In-class Exercises**.
+* Continue with the **Additional Practices** section on your own time. 
+* Optional: Explore the **Advanced Concepts** if you wish to explore Git and GitHub in more depth.
 
-* Init
-* Fork (should be familiar from [Setup Instructions](../../setup/README.md))
-* Delete
-* Managing Collaborators 
+## In-class exercises
 
-## Basic Commands
+### Basic commands:
 
-Work through the [Basic Commands](https://uvads.github.io/git-basics/). These exercises will familiarize you with:
+Work through the commands from [last day's in-class demo](../../demo/03-git/README.md). You should become familiar with:
 
 * git diff
 * git status
@@ -24,7 +24,7 @@ Work through the [Basic Commands](https://uvads.github.io/git-basics/). These ex
 * git fetch
 * git log
 
-## Group activity
+### Group activity
 
 At your table, select one person to set up a new repository on GitHub. Work through these steps:
 
@@ -37,6 +37,8 @@ At your table, select one person to set up a new repository on GitHub. Work thro
      git clone https://github.com/YOUR_USERNAME/REPO_NAME.git
      cd REPO_NAME
      ```
+   Replace the `YOUR_USERNAME` and `REPO_NAME` with your actual GitHub username and repository name.
+   
    **Important:** Make sure you are **not** inside an existing Git repository when running the `git clone` command. You don't want to create nested Git repositories.
 
 3. **Create Unique Files:**
@@ -130,12 +132,86 @@ Starting with the group member next to the first person who successfully pushed,
 
 7. The next person in the group should repeat steps 1-6 until everyone has successfully pushed their entry to the consolidated `collision.txt` file on GitHub. 
 
+## Additional Practice
+
+### Setting up and Managing Repositories
+
+Read [git in Data Science](https://uvads.github.io/git-basics/) for a brief introduction.
+
+Then work through the [Creating and Managing Git Repositories Exercises](https://uvads.github.io/git-basics/docs/creating-repositories/). These exercises will cover:
+
+* Init
+* Fork (should be familiar from [Setup Instructions](../../setup/README.md))
+* Delete
+* Managing Collaborators 
+
+### Working with branches
+
+1. **List all branches:**
+   ```bash
+   git branch
+   ```
+   This shows all local branches. The current branch is marked with an asterisk (*).
+
+2. **Create a new branch:**
+   ```bash
+   git switch -c feature-branch
+   ```
+   The `-c` flag creates a new branch and switches to it immediately. Alternatively, you can create a branch first with `git branch feature-branch` and then switch to it with `git switch feature-branch`.
+
+3. **Switch to an existing branch:**
+   ```bash
+   # be safe, make sure you are not losing anything
+   git add .
+   git commit -m "committing everything before getting files from other branches"
+   # now it is safe to switch
+   git switch main
+   ```
+   This switches you to the `main` branch. **Make sure you've committed or stashed any changes before switching branches.**
+
+### Pull requests
+
+**Exercise:** Create a pull request on GitHub
+
+1. Create a new branch for your changes:
+   ```bash
+   git switch -c my-feature
+   ```
+
+2. Make some changes:
+   ```bash
+   echo "## Features" >> README.md
+   echo "- Feature 1" >> README.md
+   git add README.md
+   git commit -m "Add features section to README"
+   ```
+
+3. Push the branch to GitHub:
+   ```bash
+   git push -u origin my-feature
+   ```
+   The `-u` ensures that the `my-feature` branch is created in the remote repository if it doesn't exist already.
+
+4. On GitHub:
+   - Navigate to your repository
+   - You should see a banner suggesting to create a pull request
+   - Click "Compare & pull request"
+   - Add a description of your changes
+   - Click "Create pull request"
+
+5. Review the pull request:
+   - Check the "Files changed" tab to see your modifications
+   - Add comments if needed
+   - Merge the pull request when ready
+
+6. After merging, update your local repository:
+   ```bash
+   git switch main
+   git pull origin main --merge
+   git branch -d my-feature
+   ```
 
 ## Advanced Concepts (Optional)
-
-### Stashing, rebasing, etc.
-
-If you want to explore additional Git features, review the [Advanced git](https://uvads.github.io/git-basics/docs/advanced/) tutorial.
 
 ### Initializing a new repo and connecting it to GitHub with gh cli
 
@@ -163,101 +239,18 @@ You may already have a project set up in a directory on your computer (or in cod
 You should see a `.git` directory containing the repository metadata. **Note: this repository only exists in your local environment; it is not on GitHub yet.**
 
 
-4. Create repository from command line (requires GitHub CLI)**
+4. Create repository from command line (requires GitHub CLI)
 ```bash
 # Install GitHub CLI if not already installed
 # Then create the repository:
 gh repo create my-git-project --public --source=. --remote=origin --push
 ```
 
-This single command creates the GitHub repository and pushes your code. See the "Pushing to remote" section for manual steps.
+This single command creates the GitHub repository and pushes your code.
 
-## Working with branches
+### Stashing, rebasing, etc.
 
-1. Create a new branch:
-   ```bash
-   git branch feature-branch
-   ```
-
-   Switch to the new branch:
-   ```bash
-   git switch feature-branch
-   ```
-
-   Or use the shorthand to create and switch in one command:
-   ```bash
-   git switch -c feature-branch
-   ```
-
-2. Make changes on the branch:
-   ```bash
-   echo "New feature" > feature.txt
-   git add feature.txt
-   git commit -m "Add new feature"
-   ```
-
-3. Switch back to main:
-   ```bash
-   git switch main
-   ```
-
-4. List all branches:
-   ```bash
-   git branch
-   ```
-
-5. Merge the feature branch into main:
-   ```bash
-   git merge feature-branch
-   ```
-
-6. Delete the feature branch (after merging):
-   ```bash
-   git branch -d feature-branch
-   ```
-
-## Pull requests
-
-**Exercise:** Create a pull request on GitHub
-
-1. Create a new branch for your changes:
-   ```bash
-   git switch -c my-feature
-   ```
-
-2. Make some changes:
-   ```bash
-   echo "## Features" >> README.md
-   echo "- Feature 1" >> README.md
-   git add README.md
-   git commit -m "Add features section to README"
-   ```
-
-3. Push the branch to GitHub:
-   ```bash
-   git push -u origin my-feature
-   ```
-
-4. On GitHub:
-   - Navigate to your repository
-   - You should see a banner suggesting to create a pull request
-   - Click "Compare & pull request"
-   - Add a description of your changes
-   - Click "Create pull request"
-
-5. Review the pull request:
-   - Check the "Files changed" tab to see your modifications
-   - Add comments if needed
-   - Merge the pull request when ready
-
-6. After merging, update your local repository:
-   ```bash
-   git switch main
-   git pull origin main --merge
-   git branch -d my-feature
-   ```
-
-## Advanced Concepts (Optional)
+If you want to explore additional Git features, review the [Advanced git](https://uvads.github.io/git-basics/docs/advanced/) tutorial.
 
 ### Creating a Repository from a Template
 
@@ -320,3 +313,7 @@ You can also create a repository from a template using GitHub's web interface:
 
 ## Resources
 
+- [git in Data Science](https://uvads.github.io/git-basics/) - Brief introduction to Git
+- [Creating and Managing Git Repositories Exercises](https://uvads.github.io/git-basics/docs/creating-repositories/) - Exercises covering Init, Fork, Delete, and Managing Collaborators
+- [Basic Commands](https://uvads.github.io/git-basics/) - Exercises for git diff, status, add, commit, push, pull, fetch, and log
+- [Advanced git](https://uvads.github.io/git-basics/docs/advanced/) - Advanced Git features tutorial

@@ -54,10 +54,6 @@
 		// "GITHUB_TOKEN": "$(localEnv:GITHUB_TOKEN)"
 	},
 	"features": {
-		"ghcr.io/devcontainers/features/docker-in-docker:2": {
-			"version": "latest",
-			"dockerDashComposeVersion": "v2"
-		}
 	}
 	// Note: Packages from requirements.txt are already installed in the Dockerfile
 	// Docker-in-Docker is enabled via the docker-in-docker feature above

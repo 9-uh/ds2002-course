@@ -1,0 +1,6 @@
+name	song_name	genre
+Taylor Swift	Love Story	Pop
+Role Model	Frances	Pop
+Adele	Hello	Pop
+Ed Sheeran	Shape of You	Pop
+Billie Eilish	Bad Guy	Pop

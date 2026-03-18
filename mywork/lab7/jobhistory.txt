@@ -1,0 +1,52 @@
+JobID           JobName  Partition    Account  AllocCPUS      State ExitCode 
+------------ ---------- ---------- ---------- ---------- ---------- -------- 
+10146320     ood_vscode interacti+     ds2002          2    TIMEOUT      0:0 
+10146320.ba+      batch                ds2002          2  CANCELLED     0:15 
+10152497     ood_vscode interacti+     ds2002          2    TIMEOUT      0:0 
+10152497.ba+      batch                ds2002          2  CANCELLED     0:15 
+10163653     ood_vscode interacti+     ds2002          2    TIMEOUT      0:0 
+10163653.ba+      batch                ds2002          2  CANCELLED     0:15 
+10167800     ood_vscode interacti+     ds2002          2    TIMEOUT      0:0 
+10167800.ba+      batch                ds2002          2  CANCELLED     0:15 
+10167847     ood_vscode interacti+     ds2002          2 CANCELLED+      0:0 
+10167847.ba+      batch                ds2002          2  CANCELLED     0:15 
+10172348     ood_vscode interacti+     ds2002          2    TIMEOUT      0:0 
+10172348.ba+      batch                ds2002          2  CANCELLED     0:15 
+10172432          hello standard-+     ds2002          1  COMPLETED      0:0 
+10172432.ba+      batch                ds2002          1  COMPLETED      0:0 
+10172520_1   text-array standard-+     ds2002          1  COMPLETED      0:0 
+10172520_1.+      batch                ds2002          1  COMPLETED      0:0 
+10172520_2   text-array standard-+     ds2002          1  COMPLETED      0:0 
+10172520_2.+      batch                ds2002          1  COMPLETED      0:0 
+10172520_3   text-array standard-+     ds2002          1  COMPLETED      0:0 
+10172520_3.+      batch                ds2002          1  COMPLETED      0:0 
+10172520_4   text-array standard-+     ds2002          1  COMPLETED      0:0 
+10172520_4.+      batch                ds2002          1  COMPLETED      0:0 
+10172520_5   text-array standard-+     ds2002          1  COMPLETED      0:0 
+10172520_5.+      batch                ds2002          1  COMPLETED      0:0 
+10330354     ood_vscode interacti+     ds2002          2    RUNNING      0:0 
+10330354.ba+      batch                ds2002          2    RUNNING      0:0 
+10330474        lab7_t2 standard-+     ds2002          1     FAILED      1:0 
+10330474.ba+      batch                ds2002          1     FAILED      1:0 
+10330507        lab7_t2 standard-+     ds2002          1  COMPLETED      0:0 
+10330507.ba+      batch                ds2002          1  COMPLETED      0:0 
+10330661_1      lab7_t2 standard-+     ds2002          1     FAILED      1:0 
+10330661_1.+      batch                ds2002          1     FAILED      1:0 
+10330661_2      lab7_t2 standard-+     ds2002          1     FAILED      1:0 
+10330661_2.+      batch                ds2002          1     FAILED      1:0 
+10330661_3      lab7_t2 standard-+     ds2002          1     FAILED      1:0 
+10330661_3.+      batch                ds2002          1     FAILED      1:0 
+10330661_4      lab7_t2 standard-+     ds2002          1     FAILED      1:0 
+10330661_4.+      batch                ds2002          1     FAILED      1:0 
+10330661_5      lab7_t2 standard-+     ds2002          1     FAILED      1:0 
+10330661_5.+      batch                ds2002          1     FAILED      1:0 
+10330685_1      lab7_t3 standard-+     ds2002          1  COMPLETED      0:0 
+10330685_1.+      batch                ds2002          1  COMPLETED      0:0 
+10330685_2      lab7_t3 standard-+     ds2002          1  COMPLETED      0:0 
+10330685_2.+      batch                ds2002          1  COMPLETED      0:0 
+10330685_3      lab7_t3 standard-+     ds2002          1  COMPLETED      0:0 
+10330685_3.+      batch                ds2002          1  COMPLETED      0:0 
+10330685_4      lab7_t3 standard-+     ds2002          1  COMPLETED      0:0 
+10330685_4.+      batch                ds2002          1  COMPLETED      0:0 
+10330685_5      lab7_t3 standard-+     ds2002          1  COMPLETED      0:0 
+10330685_5.+      batch                ds2002          1  COMPLETED      0:0 

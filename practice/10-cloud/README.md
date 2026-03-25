@@ -397,6 +397,47 @@ aws ec2 create-tags \
 
 Tag keys are case-sensitive. For the same pattern as S3 bucket naming in [Practice 09](../09-iam-s3/README.md), many students use a **`Name`** like `ds2002-<computing id>` (see [Lab 09: EC2](../../labs/09-ec2/README.md)).
 
+### Serverless computing with AWS Lambda
+
+**AWS Lambda** runs short functions on demand without you managing a server.
+
+**Supported languages:** 
+
+Lambda provides **managed runtimes** for widely used stacks, including **Node.js**, **Python**, **Ruby**, **Java**, and **.NET** (each major language version maps to a runtime identifier such as `python3.12` or `nodejs22.x`). For **Go**, **Rust**, and other compiled languages, you typically use an **OS-only** (`provided`) runtime and ship a bootstrap binary; you can also supply a **custom runtime** or deploy the function as a **container image**. Supported versions and deprecation dates change over time—see the official table: [Lambda runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html).
+
+**What can trigger a function?** 
+
+Besides your own code calling Lambda through the AWS SDK, many services can start a run in two main ways. **Event-driven triggers** *push* JSON events when something happens (for example **Amazon S3** object creates, **SNS** notifications, **EventBridge** rules and schedules, **API Gateway** or **Application Load Balancer** HTTP requests, **CloudWatch Logs** subscription filters, **Cognito**, **SES** inbound mail, **Config**, **IoT**, **CodePipeline**, **Step Functions** tasks, and **CloudFormation** custom resources). **Event source mappings** make Lambda *poll* a stream or queue (**SQS**, **Kinesis**, **DynamoDB** streams, **MSK** / self-managed Kafka, **Amazon MQ**, **DocumentDB**). Invocations can be **synchronous** (the caller waits for your return value) or **asynchronous** (Lambda queues the event). AWS maintains an authoritative table of integrations: [Invoking Lambda with events from other AWS services](https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html).
+
+**Example:** 
+
+S3 can **invoke** a function automatically when objects are created (or deleted)—a common pattern for “file landed in a bucket → process it.” This ties naturally to the buckets and uploads you used in [Practice 09 (IAM & S3)](../09-iam-s3/README.md); see also [S3 event notifications](../09-iam-s3/README.md#s3-event-notifications).
+
+**Minimal handler (Python 3.x)** — logs each object’s bucket and key. Paste into the Lambda console *Code* tab, or save as `lambda_function.py` and upload as a `.zip` containing only that file:
+
+```python
+import json
+
+def lambda_handler(event, context):
+    """React to S3 ObjectCreated* notifications."""
+    for record in event.get("Records", []):
+        if record.get("eventSource") != "aws:s3":
+            continue
+        bucket = record["s3"]["bucket"]["name"]
+        key = record["s3"]["object"]["key"]
+        # CloudWatch Logs shows this when the function runs
+        print(f"S3 event: s3://{bucket}/{key}")
+    return {"statusCode": 200, "body": json.dumps({"processed": len(event.get("Records", []))})}
+```
+
+**Wire it up (console, high level):**
+
+1. **Lambda** → Create function → choose a Python runtime → paste the code above → **Deploy**.
+2. Under **Triggers** → **Add trigger** → **S3** → pick a bucket (for example one you created in Practice 09) → Event types: **All object create events** (or a subset such as `PUT`) → save. The console adds the permissions S3 needs to invoke your function.
+3. Upload a small test file to that bucket prefix (same region as the function). Open **Monitor** → **View CloudWatch Logs** and confirm you see the `S3 event: s3://…` lines.
+
+For a real pipeline you would add **error handling**, **idempotency** (S3 may retry deliveries), and often **S3 GetObject** permissions on the function role if the code must read file contents—the snippet above only uses metadata present in the event.
+
 ## Resources
 
 - [Launch Your Instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/LaunchingAndUsingInstances.html)
@@ -432,3 +473,9 @@ Tag keys are case-sensitive. For the same pattern as S3 bucket naming in [Practi
 - [Terminate Amazon EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/terminating-instances.html)
 
 - [Change instance termination protection](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_ChangingDisableAPITermination.html)
+
+- [Using AWS Lambda with Amazon S3](https://docs.aws.amazon.com/lambda/latest/dg/with-s3.html)
+
+- [Invoking Lambda with events from other AWS services](https://docs.aws.amazon.com/lambda/latest/dg/lambda-services.html)
+
+- [Lambda runtimes](https://docs.aws.amazon.com/lambda/latest/dg/lambda-runtimes.html)

@@ -25,6 +25,21 @@ def log_to_recipes(input_key, output_key, input_bucket, output_bucket, status):
     except Exception as e:
         logging.error(f"File insert failed: {str(e)}")
 
+def lambda_handler(event, context):
+    try:
+        record = event['Records'][0]
+        input_bucket = record['s3']['bucket']['name']
+        input_key = record['s3']['object']['key']
+
+        output_key = input_key.replace(".json",".csv")
+        output_bucket = "cooking-output"
+
+        log_to_recipes(input_key, output_key, input_bucket, output_bucket, "SUCCESS")
+    
+    except Exception as e:
+        log_to_recipes(input_key, output_key, input_bucket, output_bucket, "FAILED")
+
+
 
     
 

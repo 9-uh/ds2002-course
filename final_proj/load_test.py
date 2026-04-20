@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
-import json
 import os
 import mysql.connector
 import logging
 
-DBHOST = ?????
-DBUSER = ????
-DBPASS = ????
-DB = "recipes"
+DBHOST = os.environ['DB_HOST']
+DBUSER = os.environ['DB_USER']
+DBPASS = os.environ['DB_PASS']
+DB = os.environ['DB_NAME']
 
 def log_to_recipes(input_key, output_key, input_bucket, output_bucket, status):
     try:
@@ -26,6 +25,10 @@ def log_to_recipes(input_key, output_key, input_bucket, output_bucket, status):
         logging.error(f"File insert failed: {str(e)}")
 
 def lambda_handler(event, context):
+    input_key = ""
+    output_key = ""
+    input_bucket = ""
+    output_bucket = ""
     try:
         record = event['Records'][0]
         input_bucket = record['s3']['bucket']['name']
